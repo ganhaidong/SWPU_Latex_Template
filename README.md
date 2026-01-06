@@ -6,7 +6,7 @@
   </a>
 
   <br />
-  国科大通用课程大作业模板
+  西南石油大学通用课程大作业模板
 
 </h1>
 
@@ -16,7 +16,7 @@
 
 
 ## 介绍
-- 用于国科大(UCAS)课程大作业/结课汇报的通用简易Latex模板
+- 用于西南石油大学(SWPU)课程大作业/结课汇报的通用简易Latex模板
 
 ## 模板下载
 
@@ -31,7 +31,7 @@
 - `UCASReport.sty` 文档格式控制，包括一些基础的设置，可以设置页眉、标题、姓名等
 - `figures` 放置图片的文件夹,包含院校LOGO和效果预览图
 
-使用时需前往`UCASReport.sty` 对标题、副标题、姓名、学号、院所、页眉等进行设置，然后编辑`main.tex`进行正文编写
+使用时需前往`SWPUReport.sty` 对标题、副标题、姓名、学号、院所、页眉等进行设置，然后编辑`main.tex`进行正文编写
 
 --------- 
  **强烈推荐使用[Overleaf](https://www.overleaf.com/latex/templates/zhong-guo-ke-xue-yuan-da-xue-ke-cheng-lun-wen-mo-ban/nphpxhhqvnds)**   模板已上传，打开即用
