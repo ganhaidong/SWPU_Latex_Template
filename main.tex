@@ -1,0 +1,160 @@
+
+\documentclass[12pt,hyperref,a4paper,UTF8]{ctexart}
+\usepackage{SWPUReport}
+
+
+\usepackage{booktabs}   % 三线表
+\usepackage{tabularx}   % 表格自动列宽
+\usepackage{array}      % 更灵活的列格式（可选）
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e} % 伪代码
+
+% =========================
+%  让 \cite 变为右上角上标
+%  （不引入 cite/natbib，避免和 .sty 里 hyperref 顺序冲突）
+% =========================
+\makeatletter
+\renewcommand{\@cite}[2]{%
+  \textsuperscript{[\,#1\if@tempswa ,\,#2\fi\,]}%
+}
+\makeatother
+
+%%-------------------------------正文开始---------------------------%%
+\begin{document}
+
+%%-----------------------封面--------------------%%
+\cover
+
+\thispagestyle{empty} % 首页不显示页码
+
+%%--------------------------目录页------------------------%%
+\newpage
+\tableofcontents
+
+%%------------------------正文页从这里开始-------------------%
+\newpage
+
+\section{模板说明}
+本模板主要适用于一些课程的平时论文以及期末论文，默认页边距为2.5cm，中文宋体，英文 Times New Roman，字号为12pt（小四）。
+
+编译方式：\verb|xelatex -> bibtex -> xelatex*2|。
+
+默认模板文件由以下四部分组成：
+\begin{itemize}
+    \item \texttt{main.tex} 主文件
+    \item \texttt{reference.bib} 参考文献（BibTeX）
+    \item \texttt{SWPUReport.sty} 文档格式控制（页眉、标题、学院、学号、姓名等）
+    \item \texttt{figures} 放置图片的文件夹
+\end{itemize}
+
+第一次使用时需前往 \texttt{SWPUReport.sty} 对标题、姓名、学号、院所、页眉等进行设置。默认带有封面页以及目录页，页码从目录页开始。
+
+\section{一些插入功能}
+
+\subsection{插入公式}
+行内公式 $v-\varepsilon+\phi=2$。
+
+插入行间公式如\autoref{Euler}：
+\begin{equation}
+    v-\varepsilon+\phi=2
+    \label{Euler}
+\end{equation}
+
+\subsection{插入图片}
+SWPU 校徽如\autoref{swpu}所示。这里使用了 \verb|\autoref{}| 命令，会自动生成“图”“式”等前缀，无需手动输入。
+
+此外，模板同时提供了校徽版本，如\autoref{swpu_notitle}所示。
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/swpu_logo.pdf}
+    \caption{西南石油大学}
+    \label{swpu}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.4\textwidth]{figures/swpu_logo_notitle.pdf}
+    \caption{校徽}
+    \label{swpu_notitle}
+\end{figure}
+
+\subsection{插入文本框}
+本模板定义了一个圆角灰底文本框，使用简化命令 \verb|\tbox{}| 即可（如不喜欢可在 \texttt{SWPUReport.sty} 中调整）。
+
+\tbox{
+    这是一个圆角灰底的文本框
+}
+
+\subsection{插入表格（三线表风格）}
+顶会论文常用三线表（\texttt{booktabs}），原则上不建议使用竖线。示例如\autoref{tab:files}所示。
+
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{ll}
+        \toprule
+        文件名 & 说明 \\
+        \midrule
+        \texttt{main.tex}  & 主文件 \\
+        \texttt{reference.bib} & 参考文献（BibTeX） \\
+        \texttt{SWPUReport.sty}  & 文档格式控制 \\
+        \texttt{figures}  & 图片文件夹 \\
+        \bottomrule
+    \end{tabular}
+    \caption{本模板文件组成（三线表）}
+    \label{tab:files}
+\end{table}
+
+% 若第二列内容较长，建议用 \texttt{tabularx} 自动换行（如\autoref{tab:filesx}）：
+
+% \begin{table}[!htbp]
+%     \centering
+%     \begin{tabularx}{0.9\textwidth}{lX}
+%         \toprule
+%         文件名 & 说明 \\
+%         \midrule
+%         \texttt{main.tex}  & 主文件 \\
+%         \texttt{reference.bib} & 参考文献（BibTeX），支持 \verb|\cite| 引用 \\
+%         \texttt{SWPUReport.sty}  & 文档格式控制（页眉、封面信息等）\\
+%         \texttt{figures}  & 图片文件夹 \\
+%         \bottomrule
+%     \end{tabularx}
+%     \caption{本模板文件组成（三线表，自动列宽）}
+%     \label{tab:filesx}
+% \end{table}
+
+\subsection{插入伪代码}
+课程作业常需写伪代码。这里使用 \texttt{algorithm2e}，支持行号、输入输出、结构化控制语句等。示例如\autoref{alg:sgd}。
+
+\begin{algorithm}[!htbp]
+\caption{Mini-batch SGD 训练流程示例}
+\label{alg:sgd}
+\KwIn{数据集 $\mathcal{D}$，学习率 $\eta$，批大小 $B$，轮数 $T$}
+\KwOut{模型参数 $\theta$}
+
+初始化参数 $\theta$\;
+\For{$t \leftarrow 1$ \KwTo $T$}{
+    从 $\mathcal{D}$ 中采样一个 mini-batch $\mathcal{B}$，其中 $|\mathcal{B}|=B$\;
+    计算梯度 $g \leftarrow \nabla_{\theta}\frac{1}{B}\sum_{(x,y)\in \mathcal{B}}\ell(f_{\theta}(x), y)$\;
+    更新参数 $\theta \leftarrow \theta - \eta \cdot g$\;
+}
+\Return{$\theta$}\;
+\end{algorithm}
+
+\subsection{插入参考文献（上标引用）}
+直接使用 \verb|\cite{}| 即可。本文已将引用设置为右上角上标形式。
+
+例如：\textit{此处引用了文献\cite{OFDMAbackscatter}。此处引用了文献\cite{DigiScatter}。}
+
+多篇引用也可连写：\textit{如\cite{OFDMAbackscatter,DigiScatter}所示。}
+
+\section{写在最后}
+\subsection{发布地址}
+\begin{itemize}
+    \item Github: \url{}
+    \item Overleaf: \url{https://www.overleaf.com/latex/}
+\end{itemize}
+
+%%----------- 参考文献 -------------------%%
+\reference
+
+\end{document}
